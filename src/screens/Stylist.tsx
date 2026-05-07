@@ -6,41 +6,63 @@ export function Stylist() {
   const [tab, setTab] = useState<'wardrobe' | 'outfits' | 'chat'>('wardrobe')
 
   return (
-    <div className="absolute inset-0 overflow-y-auto pb-28 no-scrollbar">
-      <div className="px-6 pt-14">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-[12px] tracking-wide text-foreground/50">AI-стилист</p>
-            <h1 className="font-display text-[28px] leading-tight">Гардероб</h1>
+    <>
+      <div className={`absolute inset-0 overflow-y-auto no-scrollbar ${tab === 'chat' ? 'pb-44' : 'pb-28'}`}>
+        <div className="px-6 pt-14">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[12px] tracking-wide text-foreground/50">AI-стилист</p>
+              <h1 className="font-display text-[28px] leading-tight">Гардероб</h1>
+            </div>
+            <button className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background">
+              <Plus size={18} strokeWidth={2} />
+            </button>
           </div>
-          <button className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background">
-            <Plus size={18} strokeWidth={2} />
-          </button>
+
+          {/* Tabs */}
+          <div className="mt-5 flex gap-1 rounded-full border border-border bg-card p-1">
+            {[
+              { id: 'wardrobe', label: 'Мои вещи' },
+              { id: 'outfits', label: 'Образы' },
+              { id: 'chat', label: 'Стилист' },
+            ].map(t => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id as any)}
+                className={`flex-1 rounded-full py-2 text-[12px] font-semibold transition-all ${
+                  tab === t.id ? 'bg-foreground text-background' : 'text-foreground/55'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Tabs */}
-        <div className="mt-5 flex gap-1 rounded-full border border-border bg-card p-1">
-          {[
-            { id: 'wardrobe', label: 'Мои вещи' },
-            { id: 'outfits', label: 'Образы' },
-            { id: 'chat', label: 'Стилист' },
-          ].map(t => (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id as any)}
-              className={`flex-1 rounded-full py-2 text-[12px] font-semibold transition-all ${
-                tab === t.id ? 'bg-foreground text-background' : 'text-foreground/55'
-              }`}
-            >
-              {t.label}
-            </button>
-          ))}
-        </div>
+        {tab === 'wardrobe' && <WardrobeTab />}
+        {tab === 'outfits' && <OutfitsTab />}
+        {tab === 'chat' && <ChatTab />}
       </div>
 
-      {tab === 'wardrobe' && <WardrobeTab />}
-      {tab === 'outfits' && <OutfitsTab />}
-      {tab === 'chat' && <ChatTab />}
+      {tab === 'chat' && <ChatInputBar />}
+    </>
+  )
+}
+
+function ChatInputBar() {
+  return (
+    <div className="absolute inset-x-0 bottom-[88px] z-20 px-4">
+      <div className="pointer-events-none absolute inset-x-0 -top-6 h-6 bg-gradient-to-t from-background to-transparent" />
+      <div className="relative flex items-center gap-2 rounded-full border border-border bg-card px-4 py-3 shadow-[0_8px_24px_-8px_rgba(50,30,20,0.18)]">
+        <MessageCircle size={16} className="text-foreground/50" />
+        <input
+          placeholder="Спросите стилиста..."
+          className="flex-1 bg-transparent text-[13px] outline-none"
+        />
+        <button className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background">
+          <ArrowRight size={14} />
+        </button>
+      </div>
     </div>
   )
 }
@@ -191,19 +213,10 @@ function ChatTab() {
           </div>
           <p className="mt-3 text-[11px] opacity-70">Если нужно дополнить — могу подобрать туфли из новой коллекции ZARINA.</p>
         </Message>
-      </div>
-
-      <div className="sticky bottom-24 mt-5">
-        <div className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-3 shadow-sm">
-          <MessageCircle size={16} className="text-foreground/50" />
-          <input
-            placeholder="Спросите стилиста..."
-            className="flex-1 bg-transparent text-[13px] outline-none"
-          />
-          <button className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background">
-            <ArrowRight size={14} />
-          </button>
-        </div>
+        <Message role="user">Покажи деловой</Message>
+        <Message role="ai">
+          Идеально подойдёт жакет твид + рубашка шёлк + брюки прямого кроя. Оставлю в «Образы»?
+        </Message>
       </div>
     </div>
   )

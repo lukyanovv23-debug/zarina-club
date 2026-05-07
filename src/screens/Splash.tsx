@@ -22,8 +22,8 @@ export function Splash({ onStart }: { onStart: () => void }) {
         </div>
 
         <div className="mt-auto">
-          <h1 className="font-display text-[58px] leading-[0.95] tracking-tight">
-            Стиль, который<br />становится <em className="not-italic text-[hsl(var(--brand-soft))]">привычкой</em>
+          <h1 className="font-display text-[54px] font-normal leading-[1] tracking-[-0.02em]">
+            Стиль, который<br />становится <span className="font-bold text-[hsl(var(--brand-soft))]">привычкой</span>
           </h1>
           <p className="mt-5 max-w-[280px] text-[14px] leading-relaxed text-white/70">
             Lifestyle-клуб ZARINA: ежедневные практики, AI-стилист и программа лояльности нового типа.
