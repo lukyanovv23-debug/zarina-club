@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap&subset=cyrillic,cyrillic-ext,latin,latin-ext');
 
 @tailwind base;
 @tailwind components;
@@ -37,13 +37,20 @@
   * { @apply border-border; }
   html, body, #root { height: 100%; }
   body {
+    --font-circe: 'Mulish', 'Circe', 'Circe Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     @apply bg-background text-foreground;
-    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-feature-settings: "ss01", "cv11";
+    font-family: var(--font-circe);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
-  .font-display { font-family: 'Cormorant Garamond', 'Times New Roman', serif; letter-spacing: -0.01em; }
-  .font-body { font-family: 'Manrope', sans-serif; }
+  .font-display {
+    font-family: var(--font-circe);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .font-body { font-family: var(--font-circe); }
 }
 
 @layer utilities {
